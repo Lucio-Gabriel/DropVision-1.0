@@ -1,3 +1,13 @@
+<?php
+
+require ('config.php');
+require 'dao/CadastroDAOMysql.php';
+
+$cadastroDao = new CadastroDAOMysql($pdo);
+$lista = $cadastroDao->findAll();
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/styleTable.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>DropVison</title>
 </head>
 <body>
@@ -76,9 +87,9 @@
     <main class="body2">
         
 
-        <div class="container">
+        <div class="#">
 
-            <table>
+            <table class="table table-dark .table-group-divider">
                 <tr>
                     <th>#</th>
                     <th>Nome Da Loja</th>
@@ -87,14 +98,21 @@
                     <th>Opções</th>
                 </tr>
 
-                <td>teste</td>
-                <td>teste</td>
-                <td>teste</td>
-                <td>teste</td>
-                <td>
-                    <a href="">Editar</a>
-                    <a href="">Excluir</a>
+            <?php foreach($lista as $dados): ?>
+
+                <tr>
+                    <td><?=$dados->getId();?></td>
+                    <td><?=$dados->getNomeDaLoja();?></td>
+                    <td><?=$dados->getLinkDaLoja();?></td>
+                    <td><?=$dados->getLojaNichada();?></td>
+
+                    <td>
+                    <a href="#">Editar</a>
+                    <a href="#">Excluir</a>
                 </td>
+                </tr>
+                <?php endforeach; ?>
+
             </table>
     
         </div>
